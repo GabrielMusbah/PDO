@@ -4,16 +4,18 @@ use Alura\Pdo\Domain\Model\Student;
 
 require_once 'vendor/autoload.php';
 
-$caminhoBanco = __DIR__ . '/banco.sqlite';
+$pdo = \Alura\Pdo\Infrastructure\Persistence\ConnectionCreator::createConnection();
 
-$pdo = new PDO('sqlite:' . $caminhoBanco);
-
-$studentDataList = $statement = $pdo->query('SELECT * FROM students;');
-
+$statement = $pdo->query('SELECT * FROM students;');
+$studentDataList = $statement->fetchAll(PDO::FETCH_ASSOC);
 $studentList = [];
 
-foreach ($studentDataList as $studentData){
-    $studentList[] = new Student($studentData['id'], $studentData['name'], new \DateTimeImmutable($studentData['birth_date']));
+foreach ($studentDataList as $studentData) {
+    $studentList[] = new Student(
+        $studentData['id'],
+        $studentData['name'],
+        new \DateTimeImmutable($studentData['birth_date'])
+    );
 }
 
 var_dump($studentList);
