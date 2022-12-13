@@ -8,13 +8,10 @@ class ConnectionCreator
 {
     public static function createConnection(): PDO
     {
-        $databasePath = __DIR__ . '/../../../banco.sqlite';
+        $connection = new PDO("mysql:host=127.0.0.1;dbname=PDO", "root");
 
-        $connection =  new PDO('sqlite:' . $databasePath);
-
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//seta se ocorrer algum erro com a conecca / crud no banco de dados
-
-        $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);//ja seta como defaul o modo fetch_assoc (associativo)
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
         return $connection;
     }

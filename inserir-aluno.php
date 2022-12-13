@@ -1,10 +1,11 @@
 <?php
 
 use Alura\Pdo\Domain\Model\Student;
+use Alura\Pdo\Infrastructure\Persistence\ConnectionCreator;
 
 require_once 'vendor/autoload.php';
 
-$pdo = \Alura\Pdo\Infrastructure\Persistence\ConnectionCreator::createConnection();
+$pdo = ConnectionCreator::createConnection();
 
 $student = new Student(
     null,
